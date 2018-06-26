@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 #xdata = [50, 55, 56, 58, 45, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75]
 #ydata = [60, 54, 77, 74, 65, 75, 43, 65, 76, 73, 78, 63, 56, 83, 75, 85]
 xdata = [10, 20, 30, 40, 50, 60, 70, 80, 90]
-ydata = [40, 60, 40, 60, 40 ,60, 40, 60, 40]
+ydata = [7,  13, 18, 23, 27, 34, 37, 42, 49]
 m = len(xdata)
 
 # To plot a line:
@@ -64,8 +64,8 @@ for i in range (loops):
     print ("Cost Function for Loop ", i, " ===> ", costFunctionCalculator(theta0, theta1))
     tempt0 = gradientDescentT0(theta0, theta1, interceptalpha)
     tempt1 = gradientDescentT1(theta0, theta1, slopealpha)
-    print ("Slope of Best Fit Line       ===> "theta1)
-    print ("Y-Intercept of Best Fit Line ===> "theta0)
+    print ("Slope of Best Fit Line       ===> ",theta1)
+    print ("Y-Intercept of Best Fit Line ===> ",theta0)
     theta0 = tempt0
     theta1 = tempt1
 
