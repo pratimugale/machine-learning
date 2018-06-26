@@ -1,21 +1,70 @@
 import matplotlib.pyplot as plt
 
-# Points to be plotted:
+# Points to be plotted (Dataset):
 xdata = [50, 55, 56, 58, 45, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75]
 ydata = [60, 54, 77, 74, 65, 75, 43, 65, 76, 73, 78, 63, 56, 83, 75, 85]
+m = len(xdata)
 
 # To plot a line:
 # y = mx + c
 # y = theta0 + xtheta1
 
-def lineplot(c, m):
+def linePlot(c, m):
     lineplotx = 100
     lineploty = (m*lineplotx)+c
     plt.plot([0, lineplotx], [c, lineploty])
 
-# cf = cost function
+def costFunctionCalculator(t0, t1):
+    # cf = cost function
+    # t0 = theta0
+    # t1 = theta1
+    # This is h(x) = theta0 + x(theta1)
+    cfsum = 0
+    for i in range (len(xdata)):
+        diff = (t0 + ((xdata[i])*t1) - ydata[i])
+        cfsum += diff*diff
+    cf = cfsum/(2*len(xdata))
+    return cf
 
-lineplot(50, -2)
+def gradientDescentT0(t0, t1, lr):
+    tempsum = 0
+    for i in range (m):
+        tempsum += (t0 + (xdata[i]*t1) - ydata[i])
+    return (t0 - ((lr/m)*tempsum))
+
+def gradientDescentT1(t0, t1, lr):
+    tempsum = 0
+    for i in range (m):
+        tempsum += (t0 + (xdata[i]*t1) - ydata[i])*xdata[i]
+    return (t1 - ((lr/m)*tempsum))
+
+
+
+''' TRIAL
+theta0 = 1
+theta1 = 1
+costFunction = costFunctionCalculator(theta0, theta1)
+print ("Cost Function for y = x ===>", costFunction)
+linePlot(1, 1)
+
+costFunction = costFunctionCalculator(0, 1.1)
+print ("Cost Function for y = 0 ===>", costFunction)
+linePlot(0, 1.1)'''
+
+# lr = learning rate (alpha)
+alpha = 0.01
+loops = 100
+theta0 = 0
+theta1 = 0
+
+for i in range (loops):
+    print ("Cost Function for Loop ", i, " ===>", costFunctionCalculator(theta0, theta1))
+    tempt0 = gradientDescentT0(theta0, theta1, alpha)
+    tempt1 = gradientDescentT1(theta0, theta1, alpha)
+    theta0 = tempt0
+    theta1 = tempt1
+
+linePlot(theta0, theta1)
 
 plt.plot(xdata, ydata, 'ro', markersize = 2)
 plt.axis([0, 100, 0, 100])
